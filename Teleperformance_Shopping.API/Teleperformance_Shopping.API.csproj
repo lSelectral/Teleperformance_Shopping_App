@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.4.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+	  <PackageReference Include="FluentValidation.AspNetCore" Version="10.4.0" />
+	  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+	  <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DBOperations\Commands\Bases\BaseDelete\" />
+    <Folder Include="DBOperations\Commands\Bases\BaseInsert\" />
+    <Folder Include="DBOperations\Commands\Bases\BaseUpdate\" />
+    <Folder Include="DBOperations\Commands\Category\CategoryUpdate\" />
+    <Folder Include="DBOperations\Commands\Category\CategoryInsert\" />
+    <Folder Include="DBOperations\Commands\Category\CategoryDelete\" />
+    <Folder Include="DBOperations\Commands\Product\ProductUpdate\" />
+    <Folder Include="DBOperations\Commands\Product\ProductInsert\" />
+    <Folder Include="DBOperations\Commands\Product\ProductDelete\" />
+    <Folder Include="DBOperations\Commands\ShoppingList\ShoppingListInsert\" />
+    <Folder Include="DBOperations\Commands\ShoppingList\ShoppingListUpdate\" />
+    <Folder Include="DBOperations\Commands\ShoppingList\ShoppingListDelete\" />
+    <Folder Include="DBOperations\Commands\User\UserUpdate\" />
+    <Folder Include="DBOperations\Commands\User\UserInsert\" />
+    <Folder Include="DBOperations\Commands\User\UserDelete\" />
+    <Folder Include="Middlewares\" />
+  </ItemGroup>
+
+</Project>

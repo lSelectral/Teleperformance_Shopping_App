@@ -1,0 +1,13 @@
+﻿using Teleperformance_Shopping.API.Core;
+using Teleperformance_Shopping.API.Models;
+using Teleperformance_Shopping.API.Repositories.BaseRepository;
+
+namespace Teleperformance_Shopping.API.Repositories.CategoryRepository
+{
+    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
+    {
+        public CategoryRepository(ShoppingDbContext context) : base(context)
+        {
+        }
+    }
+}
