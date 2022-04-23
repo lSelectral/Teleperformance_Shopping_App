@@ -1,0 +1,60 @@
+$textColor: rgb(63, 62, 62);
+
+.list-sidebar{
+    flex: 1;
+    height: calc(100vh - 50px);
+    background-color: rgb(251, 251, 255);
+    position: sticky;
+    top: 50px;
+    max-width: 20%;
+    overflow-y: scroll;
+
+    .list-sidebarWrapper{
+        padding: 20px;
+        color: black;
+        font-weight: bold;
+
+        .list-sidebarMenu{
+            margin-bottom: 10px;
+
+            .list-sidebarTitle{
+                font-size: 16px;
+                font-weight: bold;
+                color: black;
+            }
+
+            .list-sidebarList{
+                list-style: none;
+                padding: 5px;
+
+                .new-shopping-list-input{
+                    margin: 10px 0px;
+                }
+
+                .list-sidebarListItem{
+                    padding: 5px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 10px;
+                }
+
+                .create-button{
+                    background-color: teal;
+                    color: white;
+                    margin-bottom: 5px;
+
+                    &:hover{
+                        color: teal;
+                        font-weight: bold;
+                    }
+                }
+
+                .list-sidebarListItem.active,
+                .list-sidebarListItem:hover {
+                    background-color: rgb(228, 228, 250);
+                }
+            }
+        }
+    }
+}

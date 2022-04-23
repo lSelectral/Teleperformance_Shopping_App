@@ -1,0 +1,68 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+    ),
+     url("https://1330878074.rsc.cdn77.org/wp-content/uploads/2019/12/teleperformance.jpg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .header-background{
+        background-color: white;
+        border-top-right-radius: 30%;
+        border-top-left-radius: 30%;
+        .header{
+            padding: 10px;
+            font-size: 2.3rem;
+            font-weight: bold;
+            background: -webkit-linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+            -webkit-background-clip: text;
+            text-shadow: 2px 2px rgba(0, 0, 0, 0.138) ;
+
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+
+
+    .wrapper{
+        width: 40%;
+        padding: 20px;
+        background-color: white;
+        border-radius: 5%;
+        .title{
+            font-size: 24px;
+            font-weight: 500;
+        }
+        .register-form{
+            display: flex;
+            flex-wrap: wrap;
+
+            .input-class{
+                flex: 1;
+                min-width: 40%;
+                margin: 20px 10px 0px 0px;
+                padding: 10px;
+            }
+            .submit-button{
+                min-width: 80%;
+                flex: 1;
+                border: none;
+                background: rgb(63,94,251);
+                background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+                margin: 20px 10px 0px 0px;
+                padding: 10px;
+                color: white;
+                cursor: pointer;
+            }
+        }
+        .error-text{
+            padding: 10px 0px;
+            color: red;
+        }
+    }
+}
