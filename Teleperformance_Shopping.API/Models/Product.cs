@@ -11,6 +11,6 @@ namespace Teleperformance_Shopping.API.Models
         public int CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

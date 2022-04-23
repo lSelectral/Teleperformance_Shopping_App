@@ -8,6 +8,15 @@ namespace Teleperformance_Shopping.API.Repositories.ShoppingListRepository
     {
         public ShoppingListRepository(ShoppingDbContext context) : base(context)
         {
+
+        }
+        public virtual async Task AddProduct(ShoppingListProduct entity)
+        {
+            await _context.Set<ShoppingListProduct>().AddAsync(entity);
+
+
+
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Teleperformance_Shopping.API.Services.Commands.InsertModels
+﻿namespace Teleperformance_Shopping.API.Models
 {
     public class CategoryInsertModel
     {

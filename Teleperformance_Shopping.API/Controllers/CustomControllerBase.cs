@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Teleperformance_Shopping.API.DTOs;
+using Teleperformance_Shopping.API.Models;
 using Teleperformance_Shopping.API.Repositories.BaseRepository;
-using Teleperformance_Shopping.API.Repositories.ProductRepository;
 using Teleperformance_Shopping.API.Services.Commands;
 using Teleperformance_Shopping.API.Services.Queries;
 
@@ -10,6 +12,7 @@ namespace Teleperformance_Shopping.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "User")]
     public class CustomControllerBase<TEntity, TViewModel, TEntityDto, TInsertModel, TUpdateModel> : ControllerBase
         where TEntity : class
         where TViewModel : class
@@ -20,20 +23,20 @@ namespace Teleperformance_Shopping.API.Controllers
         //private readonly IMediator _mediator;
         protected readonly IMapper _mapper;
         protected readonly IBaseRepository<TEntity> _repository;
-        protected readonly IProductRepository _productRepository;
+        protected readonly TokenData _tokenData;
 
-        public CustomControllerBase(IMapper mapper, IBaseRepository<TEntity> repository, IProductRepository productRepository)
+        public CustomControllerBase(IMapper mapper, IBaseRepository<TEntity> repository, IOptions<TokenData> options)
         {
             //_mediator = mediator;
             _mapper = mapper;
             _repository = repository;
-            _productRepository = productRepository;
+            _tokenData = options.Value;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var getAllQuery = new GetAllGeneric<TEntity, TViewModel>(_repository, _mapper, _productRepository);
+            var getAllQuery = new GetAllGeneric<TEntity, TViewModel>(_repository, _mapper);
             var response = await getAllQuery.Handle();
             return CreateActionResult(response);
         }
@@ -55,6 +58,7 @@ namespace Teleperformance_Shopping.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public virtual async Task<IActionResult> Add(TInsertModel request)
         {
             if (ModelState.IsValid)
@@ -67,7 +71,8 @@ namespace Teleperformance_Shopping.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(TUpdateModel request)
+        [Authorize(Roles = "Admin")]
+        public virtual async Task<IActionResult> Update(TUpdateModel request)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +84,8 @@ namespace Teleperformance_Shopping.API.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromQuery] int request)
+        [Authorize(Roles = "Admin")]
+        public virtual async Task<IActionResult> Delete([FromQuery] int request)
         {
             var deleteCommand = new DeleteGeneric<TEntity>(_repository, request);
             var response = await deleteCommand.Handle();
