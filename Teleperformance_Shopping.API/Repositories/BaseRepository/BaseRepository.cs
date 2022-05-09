@@ -32,10 +32,11 @@ namespace Teleperformance_Shopping.API.Repositories.BaseRepository
             return await _context.Set<T>().Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
 
-        public virtual async Task Save(T entity)
+        public virtual async Task<int> Save(T entity)
         {
-            _context.Set<T>().Add(entity);
+            var q = _context.Set<T>().Add(entity);
             await _context.SaveChangesAsync();
+            return entity.Id;
         }
 
         public virtual async Task Update(T entity)

@@ -6,7 +6,7 @@
         Task<T> GetById(int id);
         Task<IReadOnlyList<T>> GetBySearch(string keyword);
         Task<IReadOnlyList<T>> GetByPage(int page, int pageSize);
-        Task Save(T entity);
+        Task<int> Save(T entity);
         Task Update(T entity);
         Task Delete(int id);
     }

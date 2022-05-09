@@ -5,5 +5,6 @@ namespace Teleperformance_Shopping.API.Repositories.ShoppingListRepository
 {
     public interface IShoppingListRepository : IBaseRepository<ShoppingList>
     {
+        Task<IReadOnlyList<ShoppingList>> GetShoppingsByUserId(int userId);
     }
 }

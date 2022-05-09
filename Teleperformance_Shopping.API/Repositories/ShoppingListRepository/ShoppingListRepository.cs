@@ -1,4 +1,5 @@
-﻿using Teleperformance_Shopping.API.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using Teleperformance_Shopping.API.Core;
 using Teleperformance_Shopping.API.Models;
 using Teleperformance_Shopping.API.Repositories.BaseRepository;
 
@@ -10,13 +11,10 @@ namespace Teleperformance_Shopping.API.Repositories.ShoppingListRepository
         {
 
         }
-        public virtual async Task AddProduct(ShoppingListProduct entity)
+
+        public async Task<IReadOnlyList<ShoppingList>> GetShoppingsByUserId(int userId)
         {
-            await _context.Set<ShoppingListProduct>().AddAsync(entity);
-
-
-
-            await _context.SaveChangesAsync();
+            return await _context.Set<ShoppingList>().Where(x => x.UserId == userId).ToListAsync();
         }
     }
 }

@@ -11,14 +11,12 @@ namespace Teleperformance_Shopping.API.Services.AuthenticationServices
     {
         private static List<Claim> GetUserClaim(UserAuthorizationObjectDto user)
         {
-            Console.WriteLine(user.Email.Contains("admin") ? "Admin" : "User");
+            Console.WriteLine(user.Email.Contains("admin") ? "admin" : "user");
             return /*List<Claim> claims =*/ new List<Claim>()
             {
                 {new Claim(ClaimTypes.NameIdentifier, user.Email) },
-                {new Claim(ClaimTypes.Role, user.Email.ToLower().Contains("admin") ? "Admin" : "User") }
+                {new Claim(ClaimTypes.Role, user.Email.ToLower().Contains("admin") ? "admin" : "user") }
             };
-
-
         }
 
         public static ClaimsPrincipal GetClaimsPrincipal(UserAuthorizationObjectDto user)

@@ -15,11 +15,11 @@ namespace Teleperformance_Shopping.API.Services.Commands
             _mapper = mapper;
             _model = model;
         }
-        public async Task<ResponseDto<NoContent>> Handle()
+        public async Task<ResponseDto<int>> Handle()
         {
-            await _repository.Save(_mapper.Map<TEntity>(_model));
+            var id = await _repository.Save(_mapper.Map<TEntity>(_model));
 
-            return ResponseDto<NoContent>.Success(204);
+            return ResponseDto<int>.Success(id, 201);
         }
     }
 }

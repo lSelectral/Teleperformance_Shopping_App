@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Teleperformance_Shopping.API.Models;
 
 namespace Teleperformance_Shopping.API.Services.AuthenticationServices
