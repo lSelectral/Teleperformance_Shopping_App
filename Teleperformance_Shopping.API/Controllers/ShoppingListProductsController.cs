@@ -22,22 +22,22 @@ namespace Teleperformance_Shopping.API.Controllers
         {
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Policy = "user")]
         public override Task<IActionResult> Add(ShoppingListProductInsertModel request)
         {
             return base.Add(request);
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Policy = "user")]
         public override Task<IActionResult> Update(ShoppingListProductUpdateModel request)
         {
             return base.Update(request);
         }
 
-        [Authorize(Roles = "User")]
-        public override Task<IActionResult> Delete([FromQuery] int request)
+        [Authorize(Policy = "user")]
+        public override Task<IActionResult> Delete([FromQuery] int id)
         {
-            return base.Delete(request);
+            return base.Delete(id);
         }
     }
 }

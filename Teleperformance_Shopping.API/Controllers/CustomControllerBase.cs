@@ -12,7 +12,6 @@ namespace Teleperformance_Shopping.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "User")]
     public class CustomControllerBase<TEntity, TViewModel, TEntityDto, TInsertModel, TUpdateModel> : ControllerBase
         where TEntity : class
         where TViewModel : class
@@ -34,6 +33,7 @@ namespace Teleperformance_Shopping.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "user")]
         public async Task<IActionResult> GetAll()
         {
             var getAllQuery = new GetAllGeneric<TEntity, TViewModel>(_repository, _mapper);
@@ -42,6 +42,7 @@ namespace Teleperformance_Shopping.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "user")]
         public async Task<IActionResult> GetById(int id)
         {
             var getByIdQuery = new GetByIdGeneric<TEntity, TViewModel>(_repository, _mapper, id);
@@ -50,6 +51,7 @@ namespace Teleperformance_Shopping.API.Controllers
         }
 
         [HttpGet("search")]
+        [Authorize(Policy = "user")]
         public async Task<IActionResult> GetBySearch(string keyword)
         {
             var getBySearchQuery = new GetBySearchGeneric<TEntity, TViewModel>(_repository, _mapper, keyword);
@@ -58,7 +60,6 @@ namespace Teleperformance_Shopping.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public virtual async Task<IActionResult> Add(TInsertModel request)
         {
             if (ModelState.IsValid)
@@ -71,7 +72,6 @@ namespace Teleperformance_Shopping.API.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Admin")]
         public virtual async Task<IActionResult> Update(TUpdateModel request)
         {
             if (ModelState.IsValid)
@@ -84,10 +84,9 @@ namespace Teleperformance_Shopping.API.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Admin")]
-        public virtual async Task<IActionResult> Delete([FromQuery] int request)
+        public virtual async Task<IActionResult> Delete([FromQuery] int id)
         {
-            var deleteCommand = new DeleteGeneric<TEntity>(_repository, request);
+            var deleteCommand = new DeleteGeneric<TEntity>(_repository, id);
             var response = await deleteCommand.Handle();
             return CreateActionResult(response);
         }
