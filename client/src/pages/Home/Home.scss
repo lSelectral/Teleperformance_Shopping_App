@@ -1,5 +1,15 @@
-.home{
-    flex: 4;
+.main-container{
     display: flex;
-    justify-content: space-between;
+
+    .home{
+        flex: 2;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    
+        .product-filter-container{
+            display: flex;
+            flex-direction: column;
+        }
+    }
 }

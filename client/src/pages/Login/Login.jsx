@@ -1,51 +1,55 @@
 import { useState } from 'react';
 import './Login.scss';
-import {ADD, userEndpoint} from '../../utility/apiCalls';
+import {POST, userEndpoint} from '../../utility/apiCalls';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
-    const [validationText, setValidationText] = useState("");
-    const [isValidInput, setIsValidInput] = useState(true);
+const Login = ({setUser, setAdmin}) => {
+    const [validationData, setValidationData] = useState({text: "", isValid: true})
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        setIsValidInput(true);
-
-        const firstName = e.target.firstname.value
-        const lastName = e.target.lastname.value
         const email = e.target.email.value
-        const emailconfirmation = e.target.emailconfirmation.value
         const password = e.target.password.value
-        const passowrdConfirmation = e.target.passowrdconfirmation.value
 
         // Password should be at least 8, max 20 character and have one uppercase, lowercase and number
         // Max 20 char
         var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-        if (email !== emailconfirmation){
-            console.log("email")
-            setValidationText("Emails don't match");
-            setIsValidInput(false);
-        } else if (password !== passowrdConfirmation){
-            setValidationText("Passwords don't match");
-            setIsValidInput(false);
-        } else if (password.match(passwordRegex) ? false : true){
-            setValidationText("Password should be at least 8, max 20 character and have one uppercase, lowercase and number");
-            setIsValidInput(false);
-        }
-
-        if (!isValidInput){
+        if (password.match(passwordRegex) ? false : true){
+            setValidationData({
+                text: "Password should be at least 8, max 20 character and have one uppercase, lowercase and number",
+                isValid: false
+            })
             return;
         }
 
         const data = {
-            firstName : firstName,
-            lastName : lastName,
             email : email,
             password : password,
         };
         console.log(data);
-
-        ADD(userEndpoint, null, data);
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+        POST(userEndpoint + '/auth', (data) => {
+            console.log(data);
+            localStorage.setItem('token',"Bearer " + data.data["token"]);
+            localStorage.setItem("userId", data.data["userId"]);
+            setUser(data.data["userId"]);
+            if (email.toLowerCase().includes("admin")) {
+                localStorage.setItem("admin", "true");
+                setAdmin("true");
+            }
+            
+            sleep(500);
+            navigate("/");
+        }, data,
+        (err) => {
+            setValidationData({
+                text: "Wrong user info. Please check again",
+                isValid: false
+            })
+        }
+        );
     }
 
     return (
@@ -63,10 +67,15 @@ const Login = () => {
                     <input name='password' placeholder="Password" type="text" 
                     className="input-class" required/>
 
-                    <button type='submit' className="submit-button">REGISTER</button>
+                    <button type='submit' className="submit-button">LOGIN</button>
                     
                 </form>
-                {isValidInput ? <></> : <h5 className='error-text'>{validationText}</h5>}
+                {validationData["isValid"] ? <></> : <h5 className='error-text'>{validationData["text"]}</h5>}
+
+                <br/>
+                <Link to="/register">
+                    Don't have an account yet? Register!
+                </Link>
             </div>
         </div>
     )

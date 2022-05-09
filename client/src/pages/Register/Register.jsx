@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import './Register.scss';
-import {ADD, userEndpoint} from '../../utility/apiCalls';
+import {POST, userEndpoint} from '../../utility/apiCalls';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({setUser, setAdmin}) => {
     const [validationText, setValidationText] = useState("");
     const [isValidInput, setIsValidInput] = useState(true);
+    const navigate = useNavigate();
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,30 +26,56 @@ const Register = () => {
         // Max 20 char
         var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
         if (email !== emailconfirmation){
-            console.log("email")
+
             setValidationText("Emails don't match");
             setIsValidInput(false);
+            return;
         } else if (password !== passowrdConfirmation){
             setValidationText("Passwords don't match");
             setIsValidInput(false);
+            return;
         } else if (password.match(passwordRegex) ? false : true){
             setValidationText("Password should be at least 8, max 20 character and have one uppercase, lowercase and number");
             setIsValidInput(false);
+            return;
+        }
+        else if (email.toLowerCase().includes("admin")){
+            setValidationText("Admin word can't be used in mails");
+            setIsValidInput(false);
+            return;
         }
 
         if (!isValidInput){
             return;
         }
 
-        const data = {
+        const request = {
             firstName : firstName,
             lastName : lastName,
             email : email,
             password : password,
         };
-        console.log(data);
+        console.log(request);
 
-        ADD(userEndpoint, null, data);
+        // Save user by request data
+        // If successful, send user email and password to get JWT Token
+        // Save user id and JWT Token to the local storage
+        // Then navigate to the homepage
+        POST(userEndpoint, (idData) => {
+            localStorage.setItem("userId", idData.data);
+            setUser(idData.data);
+            POST(userEndpoint + "/auth",
+                (token) => {
+                localStorage.setItem("token", "Bearer " + token.data["token"]);
+                if (email.toLowerCase().includes("admin")) {
+                    localStorage.setItem("admin", "true");
+                    setAdmin("true");
+                }
+
+                sleep(3000);
+                navigate('/');
+            }, {"email":email, "password":password});
+        }, request);
     }
 
     return (
@@ -79,6 +109,10 @@ const Register = () => {
                     
                 </form>
                 {isValidInput ? <></> : <h5 className='error-text'>{validationText}</h5>}
+                <br/>
+                <Link to="/login">
+                    Have an account already? Login!
+                </Link>
             </div>
         </div>
     )

@@ -1,0 +1,47 @@
+.category-container{
+    flex:4;
+
+    .category-data-grid{
+        height: 80vh;
+    }
+
+    .category-wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0px 10px;
+
+        .insert-category-modal-title{
+            margin-right: 10px;
+            font-weight: bold;
+            text-decoration: underline;
+            text-decoration-color: red;
+            font-size: 20px;
+        }
+
+        .form{
+            margin: 10px ;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid red;
+
+            .create-category-input-label{
+                margin-right: 10px;
+                text-decoration: underline;
+            }
+            .create-category-input{
+                margin-right: 25px;
+                border: 3px solid teal;
+                border-radius: 3%;
+            }
+        }
+    }
+
+
+
+    .userListDelete{
+        cursor: pointer;
+        color: rgb(226, 81, 81);
+    }
+}

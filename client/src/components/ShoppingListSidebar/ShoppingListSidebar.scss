@@ -5,9 +5,10 @@ $textColor: rgb(63, 62, 62);
     height: calc(100vh - 50px);
     background-color: rgb(251, 251, 255);
     position: sticky;
-    top: 50px;
-    max-width: 20%;
+    max-width: 28%;
+    min-width: 27%;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     .list-sidebarWrapper{
         padding: 20px;
@@ -18,14 +19,62 @@ $textColor: rgb(63, 62, 62);
             margin-bottom: 10px;
 
             .list-sidebarTitle{
-                font-size: 16px;
+                font-size: 20px;
+                text-overflow: clip;
                 font-weight: bold;
                 color: black;
+                margin-bottom: 5px;
+                text-decoration: underline;
+                text-decoration-color: red;
             }
 
             .list-sidebarList{
                 list-style: none;
                 padding: 5px;
+
+                .accordion-summary-container{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+
+                    .icon-name-container{
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .action-container{
+                        display: flex;
+                        align-items: center;
+
+                        .going-out-shopping-button{
+                            color: gray;
+                        }.active{
+                            color: rgb(84, 220, 220);
+                        }
+
+                        .shopping-completed-button{
+                            margin-left: 8px;
+                            color: rgb(55, 214, 55);
+                        }
+
+                        .delete-button{
+                            margin-left: 8px;
+                            color: rgb(234, 69, 69);
+                            background-color: rgb(229, 229, 229);
+                            border-radius: 50%;
+                            width: 25px;
+                            height: 25px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .input-container{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                }
 
                 .new-shopping-list-input{
                     margin: 10px 0px;
@@ -39,10 +88,42 @@ $textColor: rgb(63, 62, 62);
                     border-radius: 10px;
                 }
 
+                .list-product-container{
+                    display: flex;
+                    flex-direction: column;
+
+                    .product-title{
+                        padding: 5px;
+                        margin-bottom: 5px;
+                        border-radius: 2%;
+                        display: flex;
+                        flex-direction: column;
+                        background-color: white;
+
+                        .product-action-container{
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                        }
+
+                        .list-product-name{
+                        }
+                        .list-product-amount{
+
+                        }
+                    }.inCart{
+                        background-color: rgb(59, 218, 112);
+                    }.outCart{
+                        background-color: aliceblue;
+                    }
+                }
+
                 .create-button{
-                    background-color: teal;
+                    // background-color: teal;
                     color: white;
                     margin-bottom: 5px;
+                    background: rgb(63,94,251);
+                    background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 
                     &:hover{
                         color: teal;
@@ -57,4 +138,22 @@ $textColor: rgb(63, 62, 62);
             }
         }
     }
+}
+
+.MuiAccordion-region{
+    background-color: rgb(192, 186, 186);
+    overflow-y: scroll;
+    max-height: 200px;
+    font-size: 16px;
+    text-overflow: ellipsis;
+}
+
+.Mui-expanded{
+    color: rgb(86, 19, 255);
+    font-size: 18px;
+    text-overflow: ellipsis;
+}
+
+.MuiAccordionSummary-content{
+
 }

@@ -1,12 +1,19 @@
 $textColor: rgb(63, 62, 62);
 
+a{
+    text-decoration: none;
+    color: rgb(0, 123, 255);
+    font-weight: bold;
+}
+
 .sidebar{
     flex: 1;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 40px);
     background-color: rgb(251, 251, 255);
     position: sticky;
-    top: 50px;
-    max-width: 15%;
+    top: 40px;
+    max-width: 10%;
+
 
     .sidebarWrapper{
         padding: 20px;
@@ -16,8 +23,11 @@ $textColor: rgb(63, 62, 62);
             margin-bottom: 10px;
 
             .sidebarTitle{
-                font-size: 13px;
-                color: rgb(187, 186, 186);
+                font-size: 15px;
+                font-weight: bold;
+                color: rgb(0, 0, 0);
+                text-decoration: underline;
+                text-decoration-color: red;
             }
 
             .sidebarList{
