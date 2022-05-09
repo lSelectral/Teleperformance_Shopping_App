@@ -9,13 +9,13 @@ namespace Teleperformance_Shopping.API.Mappers
     {
         public Mapper()
         {
-            CreateMap<Category, int>().ConvertUsing(x => x.Id);
-            CreateMap<CategoryDto, int>().ConvertUsing(x => x.Id);
-            CreateMap<CategoryViewModel, int>().ConvertUsing(x => x.Id);
-
-            CreateMap<int, Category>().ConvertUsing(x => new Category() { Id = x });
-            CreateMap<int, CategoryDto>().ConvertUsing(x => new CategoryDto() { Id = x });
-            CreateMap<int, CategoryViewModel>().ConvertUsing(x => new CategoryViewModel() { Id = x });
+            /*
+             * Category... To String Conversion
+             */
+            CreateMap<Category, string>().ConvertUsing(x => x.Name);
+            CreateMap<CategoryInsertModel, string>().ConvertUsing(x => x.Name);
+            CreateMap<CategoryUpdateModel, string>().ConvertUsing(x => x.Name);
+            CreateMap<CategoryViewModel, string>().ConvertUsing(x => x.Name);
 
             /*
              * VIEW MODELS
@@ -24,7 +24,9 @@ namespace Teleperformance_Shopping.API.Mappers
             CreateMap<ShoppingList, ShoppingListViewModel>().ReverseMap();
             CreateMap<Category, CategoryViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
-            CreateMap<ShoppingListProduct, ShoppingListProductViewModel>().ReverseMap();
+            CreateMap<ShoppingListProduct, ShoppingListProductViewModel>()
+                .ForMember(src => src.ListProductId, opt => opt.MapFrom(o => o.Id))
+                .ReverseMap();
 
             /*
              * DTOs

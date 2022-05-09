@@ -7,6 +7,8 @@ using Teleperformance_Shopping.API.Core;
 using Teleperformance_Shopping.API.Middlewares;
 using Teleperformance_Shopping.API.Models;
 using Teleperformance_Shopping.API.Repositories.BaseRepository;
+using Teleperformance_Shopping.API.Repositories.ShoppingListRepository;
+using Teleperformance_Shopping.API.Repositories.UserRepository;
 using Teleperformance_Shopping.API.Services.AuthenticationServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add JWT Auth via Extension Method
 builder.Services.Configure<TokenData>(builder.Configuration.GetSection("TokenOption"));
 builder.Services.AddJWTAuthenticationValidation(builder.Configuration);
+
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy("user", policy => policy.RequireRole("admin", "user"));
+});
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -77,8 +84,8 @@ options =>
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-//builder.Services.AddScoped<IShoppingListRepository, ShoppingListRepository>();
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IShoppingListRepository, ShoppingListRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
