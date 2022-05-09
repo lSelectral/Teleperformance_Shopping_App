@@ -6,7 +6,6 @@ namespace Teleperformance_Shopping.API.Models
     {
         public UserUpdateModelValidation()
         {
-
         }
     }
 }

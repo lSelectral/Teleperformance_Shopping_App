@@ -12,9 +12,6 @@ namespace Teleperformance_Shopping.API.Models
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
 
-        //public string RefreshToken { get; set; }
-        //public DateTime? RefreshTokenExpireDate { get; set; }
-
         public virtual ICollection<ShoppingList> ShoppingLists { get; set; }
     }
 }

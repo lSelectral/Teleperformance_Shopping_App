@@ -6,7 +6,7 @@ namespace Teleperformance_Shopping.API.Models
     {
         public CategoryUpdateModelValidation()
         {
-
+            RuleFor(c => c.Name).NotEmpty().MinimumLength(2);
         }
     }
 }

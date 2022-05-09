@@ -20,5 +20,7 @@ namespace Teleperformance_Shopping.API.Models
         public int ShoppingListId { get; set; }
         [ForeignKey(nameof(ShoppingListId))]
         public virtual ShoppingList ShoppingList { get; set; }
+
+        public bool IsAddedToCart { get; set; }
     }
 }
